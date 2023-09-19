@@ -31,22 +31,23 @@ def create_menu(): # requestrk json이라 가정
     return jsonify(new_menu)
 
 # PUT / menus
-@app.route('/menus', methods=['PUT'])
-def update_menu():
+@app.route('/menus/<id>', methods=['PUT'])
+def update_menu(id):
     data = request.get_json()
     menu = {
         'id':data['id'],
         'name':data['name'],
         'price':data['price']
     }
+    ## 예외 처리 넣어주면 더 좋다!, id가 존재하지 않을 수도...
     menus[data['id']-1]['name'] = data['name']
     menus[data['id']-1]['price'] = data['price']
     
     return jsonify(menus[data['id']-1])   
  
  # DELETE / menus
-@app.route('/menus', methods=['DELETE'])
-def delete_menu():
+@app.route('/menus/<id>', methods=['DELETE'])
+def delete_menu(id):
     data = request.get_json()
     menu = {
         'id':data['id']
